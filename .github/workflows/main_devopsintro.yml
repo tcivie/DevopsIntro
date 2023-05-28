@@ -64,6 +64,7 @@ jobs:
     name: Run Tests
     runs-on: ubuntu-latest
     needs: lint
+    environment: Main
 
     env:
       PRIMARY_CONNECTIONS_STRING: ${{ secrets.PRIMARY_CONNECTIONS_STRING }}
