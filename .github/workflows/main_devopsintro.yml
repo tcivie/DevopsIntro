@@ -13,6 +13,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      PRIMARY_CONNECTIONS_STRING: ${{ secrets.PRIMARY_CONNECTIONS_STRING }}
+      PORT: ${{ secrets.PORT }}
+
     steps:
       - uses: actions/checkout@v2
 
@@ -54,6 +58,3 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_30A2F68765B843C1AD87C264081DF44D }}
           package: .
-        env:
-          PRIMARY_CONNECTIONS_STRING: ${{ secrets.PRIMARY_CONNECTIONS_STRING }}
-          PORT: ${{ secrets.PORT }}
