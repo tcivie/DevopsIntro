@@ -12,6 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: Main
 
     env:
       PRIMARY_CONNECTIONS_STRING: ${{ secrets.PRIMARY_CONNECTIONS_STRING }}
