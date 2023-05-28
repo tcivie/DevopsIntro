@@ -37,8 +37,7 @@ jobs:
           name: node-app
           path: .
           if-no-files-found: error
-          exclude: 
-            - '**/node_modules/**'
+          exclude: '**/node_modules/**'
 
   lint:
     name: Run Linter
