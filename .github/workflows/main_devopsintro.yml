@@ -31,20 +31,13 @@ jobs:
       - name: Build application
         run: npm run build --if-present
 
-      - name: Create artifact directory
-        run: mkdir artifact
-
-      - name: Copy files to artifact directory
-        run: cp -R !(artifact) artifact
-
-      - name: Create ZIP archive
-        run: zip -r node-app.zip artifact
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: node-app.zip
+          path: .
+          exclude: |
+            node_modules
 
   lint:
     name: Run Linter
