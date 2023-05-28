@@ -23,7 +23,7 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v1
         with:
-          node-version: '16.x'
+          node-version: '18.x'
 
       - name: Install dependencies
         run: npm ci
@@ -31,14 +31,14 @@ jobs:
       - name: Build application
         run: npm run build --if-present
 
-      - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: release.zip
+          path: .
+          if-no-files-found: error
+          exclude: 
+            - '**/node_modules/**'
 
   lint:
     name: Run Linter
@@ -46,34 +46,16 @@ jobs:
     needs: build
 
     steps:
-    - name: Download artifact from build job
-      uses: actions/download-artifact@v2
-      with:
-        name: node-app
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: node-app
 
-    - name: Show current directory and contents
-      run: |
-        echo "Current directory: $(pwd)"
-        ls -la
+      - name: Install dependencies
+        run: npm ci
 
-    - name: unzip artifact for deployment
-      run: unzip release.zip
-
-    - name: Show current directory and contents
-      run: |
-        echo "Current directory: $(pwd)"
-        ls -la
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Show current directory and contents
-      run: |
-        echo "Current directory: $(pwd)"
-        ls -la
-
-    - name: Run linter
-      run: npm run lint
+      - name: Run linter
+        run: npm run lint
 
   test:
     name: Run Tests
@@ -86,11 +68,8 @@ jobs:
         with:
           name: node-app
 
-      - name: unzip artifact for deployment
-        run: unzip release.zip
-
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run tests
         run: npm run test --if-present
@@ -105,9 +84,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: node-app
-
-      - name: unzip artifact for deployment
-        run: unzip release.zip
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
