@@ -35,7 +35,7 @@ jobs:
         run: mkdir artifact
 
       - name: Copy files to artifact directory
-        run: cp -R . artifact
+        run: cp -R !(artifact) artifact
 
       - name: Create ZIP archive
         run: zip -r node-app.zip artifact
