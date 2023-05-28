@@ -1,3 +1,4 @@
 const app = require('./src/index');
+const port = process.env.PORT || 3000
 /* eslint-disable-next-line no-unused-vars */
-const server = app.listen(3000, () => console.log('Server listening on port 3000'));
+const server = app.listen(port, () => console.log(`Server listening on port ${port}`));
