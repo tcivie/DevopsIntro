@@ -26,8 +26,6 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
-        with:
-          PRIMARY_CONNECTIONS_STRING: ${{ secrets.PRIMARY_CONNECTIONS_STRING }}
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -56,3 +54,6 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_30A2F68765B843C1AD87C264081DF44D }}
           package: .
+        env:
+          PRIMARY_CONNECTIONS_STRING: ${{ secrets.PRIMARY_CONNECTIONS_STRING }}
+          PORT: ${{ secrets.PORT }}
