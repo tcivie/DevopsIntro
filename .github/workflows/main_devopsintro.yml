@@ -31,16 +31,13 @@ jobs:
       - name: Build application
         run: npm run build --if-present
 
-      - name: List files to be uploaded
-        run: ls -R
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
           path: .
           exclude: |
-            node_modules
+            node_modules/**
 
   lint:
     name: Run Linter
